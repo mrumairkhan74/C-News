@@ -4,33 +4,35 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSearch } from "react-icons/fa";
 
-const Games = () => {
-  const [trends, setTrends] = useState([]);
+const apiurl = import.meta.env.VITE_BACKEND_API;
+
+const Celebrity = () => {
+  const [celebrity, setcelebrity] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [expandedPostId, setExpandedPostId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const trendsData = async () => {
+  const celebrityData = async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get("http://localhost:5000/post/get/trends", {
+      const res = await axios.get(`${apiurl}/post/get/celebrity`, {
         withCredentials: true,
       });
       const posts = res.data.posts || res.data;
-      setTrends(posts);
+      setcelebrity(posts);
       setFilteredPosts(posts); // initially show all
     } catch {
-      setError("Something went wrong while fetching Trends news.");
+      setError("Something went wrong while fetching Celebrity news.");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    trendsData();
+    celebrityData();
   }, []);
 
   const handleSearch = (e) => {
@@ -134,4 +136,4 @@ const Games = () => {
   );
 };
 
-export default Games;
+export default Celebrity;

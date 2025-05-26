@@ -1,16 +1,19 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+const apiurl = import.meta.env.VITE_BACKEND_API;
 const GovernmentNews = () => {
   const [government, setGovernment] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Fetch Data from Database
   const governmentData = async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get("http://localhost:5000/post/get/government", {
+      const res = await axios.get(`${apiurl}/post/get/government`, {
         withCredentials: true,
       });
       const posts = res.data.posts || res.data;
@@ -22,9 +25,24 @@ const GovernmentNews = () => {
     }
   };
 
+  // for Display data
   useEffect(() => {
     governmentData();
   }, []);
+
+
+  // Loading
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <img
+          src="/images/logo.png" // Make sure this path is correct
+          alt="Loading..."
+          className="h-16 w-16 animate-spin"
+        />
+      </div>
+    );
+  if (error) return <p className="p-4 text-red-500">{error}</p>;
 
   return (
     <div className="m-5">

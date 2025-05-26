@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+
+
+const apiurl = import.meta.env.VITE_BACKEND_API;
+
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -22,15 +26,11 @@ const CreatePost = () => {
       formData.append("news", news);
       formData.append("file", file);
 
-      const response = await axios.post(
-        "http://localhost:5000/post/create",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${apiurl}/post/create`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setSuccessMsg("Post created successfully!");
       setTitle("");
@@ -70,13 +70,15 @@ const CreatePost = () => {
           <select
             name="news"
             value={news}
+            required
             onChange={(e) => setNews(e.target.value)}
             className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
+            <option value="">Select Category</option>
             <option value="government">Government</option>
             <option value="games">Games</option>
             <option value="education">Education</option>
-            <option value="trends">Trends</option>
+            <option value="celebrity">Celebrity</option>
             <option value="technology">Technology</option>
             <option value="music">Music</option>
           </select>

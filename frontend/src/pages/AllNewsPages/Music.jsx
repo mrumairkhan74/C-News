@@ -4,6 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSearch } from "react-icons/fa";
 
+const apiurl = import.meta.env.VITE_BACKEND_API;
+
 const Music = () => {
   const [music, setMusic] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -16,7 +18,7 @@ const Music = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get("http://localhost:5000/post/get/music", {
+      const res = await axios.get(`${apiurl}/post/get/music`, {
         withCredentials: true,
       });
       const posts = res.data.posts || res.data;
@@ -57,7 +59,7 @@ const Music = () => {
         Music News
       </h1>
 
-      <div className="flex flex-col lg:flex-row gap-6 px-4 lg:px-10">
+      <div className="flex flex-col lg:flex-row gap-6 px-4 lg:px-10 mb-10">
         {/* Posts Section */}
         <div className="flex-1 space-y-6">
           {loading ? (
@@ -84,13 +86,13 @@ const Music = () => {
                   className="w-full md:w-48 h-auto object-contain rounded"
                 />
                 <div className="flex flex-col">
-                <p className="text-gray-500 text-[12px] right">
-                  {new Date(post.createdAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </p>
+                  <p className="text-gray-500 text-[12px] right">
+                    {new Date(post.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </p>
                   <h2 className="font-bold text-xl">{post.title}</h2>
                   <p className="text-gray-700 text-sm">
                     {expandedPostId === post._id

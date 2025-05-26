@@ -10,24 +10,25 @@ import Education from "./pages/AllNewsPages/Education";
 import Games from "./pages/AllNewsPages/Games";
 import Music from "./pages/AllNewsPages/Music";
 import Technology from "./pages/AllNewsPages/Technology";
-import Trends from "./pages/AllNewsPages/Trends";
 import Government from "./pages/AllNewsPages/Government";
 import Protected from "./pages/Protected";
 import Login from "./pages/posts/Login";
+import Celebrity from "./pages/AllNewsPages/Celebrity";
 
+const apiurl = import.meta.env.VITE_BACKEND_API;
 const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Check login status on app load
     axios
-      .get("http://localhost:5000/user/verify", { withCredentials: true })
+      .get(`${apiurl}/user/verify`, { withCredentials: true })
       .then((res) => setUser(res.data.user))
       .catch(() => setUser(null));
   }, []);
 
   const handleLogout = async () => {
-    await axios.get("http://localhost:5000/user/logout", {
+    await axios.get(`{apiurl}/user/logout`, {
       withCredentials: true,
     });
     setUser(null);
@@ -51,7 +52,7 @@ const App = () => {
         <Route path="/education" element={<Education />} />
         <Route path="/games" element={<Games />} />
         <Route path="/government" element={<Government />} />
-        <Route path="/trends" element={<Trends />} />
+        <Route path="/celebrity" element={<Celebrity />} />
         <Route path="/technology" element={<Technology />} />
         <Route path="/music" element={<Music />} />
       </Routes>

@@ -4,6 +4,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSearch } from "react-icons/fa";
 
+
+const apiurl = import.meta.env.VITE_BACKEND_API;
+
 const Games = () => {
   const [games, setGames] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -16,7 +19,7 @@ const Games = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get("http://localhost:5000/post/get/games", {
+      const res = await axios.get(`${apiurl}/post/get/games`, {
         withCredentials: true,
       });
       const posts = res.data.posts || res.data;

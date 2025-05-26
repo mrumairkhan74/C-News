@@ -52,8 +52,8 @@ const Navbar = ({ user, onLogout }) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/trends" className={linkClasses}>
-              Latest Trends News
+            <NavLink to="/celebrity" className={linkClasses}>
+               Celebrity
             </NavLink>
           </li>
           <li>

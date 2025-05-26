@@ -4,24 +4,36 @@ const app = express();
 const UserRouter = require('./routes/UserRoutes');
 const PostRouter = require('./routes/PostRoutes');
 const cors = require('cors');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 
-app.use(express.json())
+// Middleware
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: process.env.FRONTEND_URI,
     credentials: true
 }));
 app.use(cookieParser());
 
-app.use('/user', UserRouter)
-app.use('/post', PostRouter)
+// 🔐 Access-Control Headers
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URI);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
 
+// Routes
+app.use('/user', UserRouter);
+app.use('/post', PostRouter);
 
+// Health Check (optional)
+app.get('/', (req, res) => {
+    res.send('API is running...');
+});
 
-
-
-
+// Start Server
 app.listen(process.env.PORT, () => {
-    console.log('Server Running')
-})
+    console.log(`Server running on port ${process.env.PORT}`);
+});

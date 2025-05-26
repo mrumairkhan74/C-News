@@ -23,7 +23,7 @@ const postModel = new  mongoose.Schema({
     },
     news:{
         type:String,
-        enum:['government','games','education','technology','trends','music'],
+        enum:['government','games','education','technology','celebrity','music'],
         default:'government'
     }
 

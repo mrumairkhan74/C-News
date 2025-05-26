@@ -1,30 +1,48 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+const apiurl = import.meta.env.VITE_BACKEND_API;
 const MusicNews = () => {
   const [music, setMusic] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // fetch Data
   const musicData = async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get("http://localhost:5000/post/get/music", {
+      const res = await axios.get(`${apiurl}/post/get/music`, {
         withCredentials: true,
       });
       const posts = res.data.posts || res.data;
       setMusic(posts);
     } catch {
-      setError("Something went wrong while fetching Government news.");
+      setError("Something went wrong while fetching Music news.");
     } finally {
       setLoading(false);
     }
   };
 
+  // Data Display
+
   useEffect(() => {
     musicData();
   }, []);
+
+  // loading
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <img
+          src="/images/logo.png" // Make sure this path is correct
+          alt="Loading..."
+          className="h-16 w-16 animate-spin"
+        />
+      </div>
+    );
+  if (error) return <p className="p-4 text-red-500">{error}</p>;
 
   return (
     <div className="m-5">

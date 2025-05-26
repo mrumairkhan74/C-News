@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaSearch } from "react-icons/fa";
 
+
+const apiurl = import.meta.env.VITE_BACKEND_API;
+
 const Education = () => {
   const [education, setEducation] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -22,7 +25,7 @@ const Education = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get("http://localhost:5000/post/get/education", {
+      const res = await axios.get(`${apiurl}/post/get/education`, {
         withCredentials: true,
       });
       const posts = res.data.posts || res.data;
@@ -73,7 +76,7 @@ const Education = () => {
       <h1 className="text-center text-4xl tracking-wide font-mono p-5 m-5">
         Education News
       </h1>
-      <div className="flex flex-col lg:flex-row gap-6 p-4">
+      <div className="flex flex-col lg:flex-row gap-6 p-4 mb-10">
         {/* Posts Section */}
         <div className="flex-3 w-full lg:w-2/3">
           {filteredPosts.length === 0 && (

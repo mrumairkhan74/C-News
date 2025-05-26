@@ -4,6 +4,8 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
+const apiurl = import.meta.env.VITE_BACKEND_API;
+
 const Login = ({ setUser }) => {
   // receive setUser prop to save logged user
   const [email, setEmail] = useState("");
@@ -17,15 +19,15 @@ const Login = ({ setUser }) => {
     setError(null);
     try {
       const res = await axios.post(
-        "http://localhost:5000/user/login",
+        `${apiurl}/user/login`,
         { email, password },
         { withCredentials: true }
       );
       console.log("User data from backend:", res.data.user);
       setUser(res.data.user);
       toast.success(`${res.data.user.email} Login Successfully`);
-  
-      if (res.data.user.email === "admin@gmail.com") {
+
+      if (res.data.user.email === "mrumairkhan74@gmail.com") {
         console.log("Redirecting admin to /create");
         navigate("/create");
       } else {
@@ -39,8 +41,7 @@ const Login = ({ setUser }) => {
       setLoading(false);
     }
   };
-  
-  
+
   return (
     <>
       <ToastContainer position="top-right" />

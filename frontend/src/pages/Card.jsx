@@ -6,6 +6,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Link } from "react-router";
 
+const apiurl = import.meta.env.VITE_BACKEND_API;
+
 const Card = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ const Card = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get("http://localhost:5000/post/get", {
+      const res = await axios.get(`${apiurl}/post/get`, {
         withCredentials: true,
       });
       setPosts(res.data.posts);

@@ -4,7 +4,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSearch } from "react-icons/fa";
 
-const Music = () => {
+
+const apiurl = import.meta.env.VITE_BACKEND_API;
+
+const Technology = () => {
   const [technology, setTechnology] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [expandedPostId, setExpandedPostId] = useState(null);
@@ -16,7 +19,7 @@ const Music = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get("http://localhost:5000/post/get/technology", {
+      const res = await axios.get(`${apiurl}/post/get/technology`, {
         withCredentials: true,
       });
       const posts = res.data.posts || res.data;
@@ -57,7 +60,7 @@ const Music = () => {
         Technologies News
       </h1>
 
-      <div className="flex flex-col lg:flex-row gap-6 px-4 lg:px-10">
+      <div className="flex flex-col lg:flex-row gap-6 px-4 lg:px-10 mb-10">
         {/* Posts Section */}
         <div className="flex-1 space-y-6">
           {loading ? (
@@ -134,4 +137,4 @@ const Music = () => {
   );
 };
 
-export default Music;
+export default Technology;

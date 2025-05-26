@@ -13,8 +13,9 @@ import EducationNews from "./NewsHome/EducationNews";
 import GamesNews from "./NewsHome/GamesNews";
 import TechnologyNews from "./NewsHome/TechnologyNews";
 import MusicNews from "./NewsHome/MusicNews";
-import TrendsNews from "./NewsHome/TrendsNews";
+import CelebrityNews from "./NewsHome/CelebrityNews";
 
+const apiurl = import.meta.env.VITE_BACKEND_API;
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [posts, setPosts] = useState([]);
@@ -34,7 +35,7 @@ const Home = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get("http://localhost:5000/post/get", {
+      const res = await axios.get(`${apiurl}/post/get`, {
         withCredentials: true,
       });
       setPosts(res.data.posts);
@@ -95,9 +96,12 @@ const Home = () => {
                   <SwiperSlide key={p._id}>
                     <div className="mb-6">
                       <img
-                        src={`data:image/png;base64,${p.image}`}
+                        src={
+                          p.image
+                            ? `data:image/png;base64,${p.image}`
+                            : "/images/placeholder.png"
+                        }
                         alt="News"
-                        className="w-full object-cover sm:h-[250px] lg:h-[300px] rounded-md mb-3"
                       />
                       <h2 className="font-bold text-xl sm:text-2xl lg:text-3xl mb-1 px-2 text-red-700">
                         {p.title}
@@ -153,7 +157,7 @@ const Home = () => {
 
       <GamesNews />
       <MusicNews />
-      <TrendsNews/>
+      <CelebrityNews />
 
       <Sponser />
     </>

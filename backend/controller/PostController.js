@@ -53,7 +53,7 @@ const getPost = async (req, res) => {
 // government Related Post
 const governmentPost = async (req, res) => {
     try {
-        const posts = await Post.find({ news: 'government' });
+        const posts = await Post.find({ news: 'government' }).sort({ createdAt: -1 });
         if (posts.length === 0) {
             return res.status(404).json({ error: "No posts available" });
         }
@@ -77,7 +77,7 @@ const governmentPost = async (req, res) => {
 // All games Related Post
 const gamesPost = async (req, res) => {
     try {
-        const posts = await Post.find({ news: 'games' });
+        const posts = await Post.find({ news: 'games' }).sort({ createdAt: -1 });
         if (posts.length === 0) {
             return res.status(404).json({ error: "No posts available" });
         }
@@ -101,7 +101,7 @@ const gamesPost = async (req, res) => {
 // music related Post 
 const musicPost = async (req, res) => {
     try {
-        const posts = await Post.find({ news: 'music' });
+        const posts = await Post.find({ news: 'music' }).sort({ createdAt: -1 });
         if (posts.length === 0) {
             return res.status(404).json({ error: "No posts available" });
         }
@@ -125,7 +125,7 @@ const musicPost = async (req, res) => {
 // technology related Post
 const technologyPost = async (req, res) => {
     try {
-        const posts = await Post.find({ news: 'technology' });
+        const posts = await Post.find({ news: 'technology' }).sort({ createdAt: -1 });
         if (posts.length === 0) {
             return res.status(404).json({ error: "No posts available" });
         }
@@ -147,9 +147,9 @@ const technologyPost = async (req, res) => {
 }
 
 // trend related Posts
-const trendPost = async (req, res) => {
+const celebrityPost = async (req, res) => {
     try {
-        const posts = await Post.find({ news: 'trends' });
+        const posts = await Post.find({ news: 'celebrity' }).sort({ createdAt: -1 });
         if (posts.length === 0) {
             return res.status(404).json({ error: "No posts available" });
         }
@@ -174,7 +174,7 @@ const trendPost = async (req, res) => {
 // education Related All Post
 const educationPost = async (req, res) => {
     try {
-        const posts = await Post.find({ news: 'education' });
+        const posts = await Post.find({ news: 'education' }).sort({ createdAt: -1 });
         if (posts.length === 0) {
             return res.status(404).json({ error: "No posts available" });
         }
@@ -265,7 +265,7 @@ module.exports = {
     updatePostById,
     deletePostById,
     governmentPost,
-    trendPost,
+    celebrityPost,
     gamesPost,
     educationPost,
     musicPost,
